@@ -1,3 +1,4 @@
+const cors = require("cors");
 const express = require("express");
 const config = require("config");
 const Joi = require("joi");
@@ -5,11 +6,10 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 // custom
-// const logger = require("./middleware/logger");
 const courses = require("./routes/courses");
 const home = require("./routes/home");
-const users = require("./routes/users");
-const auth = require("./routes/auth");
+const register = require("./routes/register");
+const login = require("./routes/login");
 
 const app = express();
 
@@ -30,13 +30,13 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 
 app.use(express.json());
+app.use(cors());
 // app.use(express.urlencoded({ extended: true }));
 // app.use(helmet());
-// // app.use(logger);
 app.use("/", home);
 app.use("/api/courses", courses);
-app.use("/api/users", users);
-app.use("/api/auth", auth);
+app.use("/api/register", register);
+app.use("/api/login", login);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
