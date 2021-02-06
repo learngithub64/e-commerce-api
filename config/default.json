@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
+  "jwtPrivateKey": "ecom_jwtPrivateKey",
   "name": "My Express APP"
 }
