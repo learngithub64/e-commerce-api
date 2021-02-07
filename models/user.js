@@ -3,6 +3,18 @@ const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const mongoose = require("mongoose");
 
+const productSchema = new mongoose.Schema({
+  productId: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    min: [1, "Quantity cannot be less than 1"],
+    required: true,
+  },
+});
+
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -29,6 +41,7 @@ const userSchema = new mongoose.Schema({
     minLength: 5,
     maxLength: 1024,
   },
+  basket: [productSchema],
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -53,5 +66,16 @@ function validateUser(user) {
   return schema.validate(user);
 }
 
+function validateProduct(basket) {
+  const schema = Joi.object({
+    productId: Joi.string().required(),
+    quantity: Joi.number()
+      .positive("Quantity must be a positive number")
+      .required(),
+  });
+  return schema.validate(basket);
+}
+
 exports.User = User;
 exports.validate = validateUser;
+exports.validateProduct = validateProduct;

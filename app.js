@@ -10,6 +10,7 @@ const courses = require("./routes/courses");
 const home = require("./routes/home");
 const register = require("./routes/register");
 const login = require("./routes/login");
+const basket = require("./routes/basket");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/", home);
 app.use("/api/courses", courses);
 app.use("/api/register", register);
 app.use("/api/login", login);
+app.use("/api/basket", basket);
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
