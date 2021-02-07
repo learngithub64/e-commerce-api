@@ -12,7 +12,9 @@ router.post("/", auth, async (req, res) => {
   const { error } = validateProduct(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const user = await User.findById(req.user._id).select("basket");
+  const user = await User.findById(req.user._id).select(
+    "-password -confirmPassword"
+  );
 
   const productPresent = user.basket.find(
     product => product.productId === req.body.productId
@@ -28,11 +30,13 @@ router.post("/", auth, async (req, res) => {
   }
 
   await user.save();
-  res.send(req.body);
+  res.send(user);
 });
 
 router.put("/:id", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("basket");
+  const user = await User.findById(req.user._id).select(
+    "-password -confirmPassword"
+  );
   const productIndex = user.basket.findIndex(
     pr => pr.productId === req.params.id
   );
@@ -46,15 +50,17 @@ router.put("/:id", auth, async (req, res) => {
   }
 
   await user.save();
-  res.send(req.body);
+  res.send(user);
 });
 
 router.delete("/", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("basket");
+  const user = await User.findById(req.user._id).select(
+    "-password -confirmPassword"
+  );
   user.basket = new Array();
 
   await user.save();
-  res.send(req.body);
+  res.send(user);
 });
 
 module.exports = router;
