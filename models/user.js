@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema({
     min: [1, "Quantity cannot be less than 1"],
     required: true,
   },
+  productPrice: {
+    type: Number,
+    required: true,
+  },
 });
 
 const userSchema = new mongoose.Schema({
@@ -76,6 +80,9 @@ function validateProduct(basket) {
     productId: Joi.string().required(),
     quantity: Joi.number()
       .positive("Quantity must be a positive number")
+      .required(),
+    productPrice: Joi.number()
+      .positive("Price must be a positive number")
       .required(),
   });
   return schema.validate(basket);

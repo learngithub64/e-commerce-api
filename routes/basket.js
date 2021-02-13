@@ -25,6 +25,7 @@ router.post("/", auth, async (req, res) => {
     const product = {
       productId: req.body.productId,
       quantity: req.body.quantity,
+      productPrice: req.body.productPrice,
     };
     user.basket.push(product);
   }
