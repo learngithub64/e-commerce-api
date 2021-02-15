@@ -6,8 +6,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 // custom
-const courses = require("./routes/courses");
-const home = require("./routes/home");
 const register = require("./routes/register");
 const login = require("./routes/login");
 const basket = require("./routes/basket");
@@ -20,7 +18,7 @@ if (!config.get("jwtPrivateKey")) {
 }
 
 const url =
-  "mongodb+srv://stefan:L75FpLEVuYWccqbn@cluster0.qfssq.mongodb.net/courses?retryWrites=true&w=majority";
+  "mongodb+srv://stefan:L75FpLEVuYWccqbn@cluster0.qfssq.mongodb.net/eCommerce?retryWrites=true&w=majority";
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -34,8 +32,6 @@ app.use(express.json());
 app.use(cors());
 // app.use(express.urlencoded({ extended: true }));
 // app.use(helmet());
-app.use("/", home);
-app.use("/api/courses", courses);
 app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/api/basket", basket);
