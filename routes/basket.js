@@ -31,7 +31,13 @@ router.post("/", auth, async (req, res) => {
   }
 
   await user.save();
-  res.send(user);
+
+  const token = user.generateAuthToken();
+
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(user);
 });
 
 router.put("/:id", auth, async (req, res) => {
@@ -51,7 +57,13 @@ router.put("/:id", auth, async (req, res) => {
   }
 
   await user.save();
-  res.send(user);
+
+  const token = user.generateAuthToken();
+
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(user);
 });
 
 router.delete("/", auth, async (req, res) => {
@@ -61,7 +73,13 @@ router.delete("/", auth, async (req, res) => {
   user.basket = new Array();
 
   await user.save();
-  res.send(user);
+
+  const token = user.generateAuthToken();
+
+  res
+    .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
+    .send(user);
 });
 
 module.exports = router;
