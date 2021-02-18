@@ -28,10 +28,10 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
 app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/api/basket", basket);
+app.use(helmet());
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
