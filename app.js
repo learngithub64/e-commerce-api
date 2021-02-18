@@ -1,9 +1,7 @@
 const cors = require("cors");
 const express = require("express");
 const config = require("config");
-const Joi = require("joi");
 const helmet = require("helmet");
-const morgan = require("morgan");
 const mongoose = require("mongoose");
 // custom
 const register = require("./routes/register");
@@ -30,8 +28,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 
 app.use(express.json());
 app.use(cors());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(helmet());
+app.use(helmet());
 app.use("/api/register", register);
 app.use("/api/login", login);
 app.use("/api/basket", basket);
